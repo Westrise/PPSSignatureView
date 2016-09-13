@@ -236,7 +236,9 @@ static PPSSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
     length = 0;
     dotsLength = 0;
     self.hasSignature = NO;
-	
+    if(self.delegate && [self.delegate respondsToSelector:@selector(signatureHasBeenChanged)]){
+        [self.delegate signatureHasBeenChanged];
+    }
 	[self setNeedsDisplay];
 }
 
@@ -302,6 +304,9 @@ static PPSSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
         }
 
         unmapVertexBuffer(mappedBuffer);
+        if(self.delegate && [self.delegate respondsToSelector:@selector(signatureHasBeenChanged)]){
+            [self.delegate signatureHasBeenChanged];
+        }
     }
     
     [self setNeedsDisplay];
@@ -353,6 +358,9 @@ static PPSSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
             addVertex(mappedBuffer, &length, previousVertex);
 
             self.hasSignature = YES;
+            if(self.delegate && [self.delegate respondsToSelector:@selector(signatureHasBeenChanged)]){
+                [self.delegate signatureHasBeenChanged];
+            }
 
         } else if ([p state] == UIGestureRecognizerStateChanged) {
 

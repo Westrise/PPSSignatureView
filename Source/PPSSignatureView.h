@@ -1,6 +1,13 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 
+@protocol PPSSignatureViewDelegate <NSObject>
+
+@optional
+-(void)signatureHasBeenChanged;
+
+@end
+
 @interface PPSSignatureView : GLKView
 
 @property (assign, nonatomic) IBInspectable UIColor *strokeColor;
@@ -11,6 +18,7 @@
 @property (nonatomic) IBInspectable CGFloat minimumStrokeWidth;
 @property (nonatomic) IBInspectable CGFloat maximumStrokeWidth;
 
+@property (nonatomic, weak) id<PPSSignatureViewDelegate> delegate;
 
 - (void)erase;
 
